@@ -63,6 +63,9 @@
  * (Not expressible via @theme, so defined as regular custom props)
  */
 :root {
+  /* ─── Tailwind color shims for third-party components ─── */
+  --sky-500: #0ea5e9;
+
   --gradient-hero: linear-gradient(135deg, #1e40af 0%, #0369a1 40%, #0ea5e9 100%);
   --gradient-dark: linear-gradient(180deg, #0369a1 0%, #1e40af 100%);
   --gradient-cta: linear-gradient(90deg, #0284c7 0%, #0369a1 100%);
