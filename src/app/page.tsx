@@ -12,15 +12,15 @@ import {
 
 export default function HomePage() {
   return (
-    <main>
+    <main className="bg-[#f0f9ff]">
       <HeroHome />
       <StatsSection />
+      <PartnerLogos />
       <AboutPreview />
       <ProductHighlights />
       <Timeline />
       <CertificationGrid />
       <GlobalReachPreview />
-      <PartnerLogos />
       <CTABanner />
     </main>
   )

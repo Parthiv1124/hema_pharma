@@ -68,7 +68,7 @@ export function StatsSection() {
   return (
     <section
       ref={ref}
-      className="relative z-10 -mt-20 pb-16 bg-transparent"
+      className="relative z-10 -mt-20 pb-4 bg-transparent"
     >
       <Container>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

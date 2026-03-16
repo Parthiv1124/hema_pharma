@@ -40,7 +40,7 @@ export function PartnerLogos() {
   return (
     <section
       ref={ref}
-      className="overflow-hidden py-16 bg-[#f0f9ff]"
+      className="overflow-hidden pt-6 pb-16 bg-[#f0f9ff]"
     >
       <Container>
         <motion.div
