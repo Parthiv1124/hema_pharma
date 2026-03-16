@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import { motion, useScroll, useTransform, useInView, MotionValue } from 'framer-motion'
 import { Container } from '@/components/ui/Container'
 
@@ -61,7 +61,23 @@ const milestones = [
 
 /* --- Desktop: Horizontal scroll timeline (receives scrollYProgress from parent) --- */
 function DesktopTimeline({ scrollYProgress }: { scrollYProgress: MotionValue<number> }) {
-  const x = useTransform(scrollYProgress, [0, 1], ['0%', '-52%'])
+  const wrapRef = useRef<HTMLDivElement>(null)
+  const railRef = useRef<HTMLDivElement>(null)
+  const [maxShift, setMaxShift] = useState(0)
+
+  useEffect(() => {
+    const compute = () => {
+      const wrap = wrapRef.current
+      const rail = railRef.current
+      if (!wrap || !rail) return
+      setMaxShift(Math.max(0, rail.scrollWidth - wrap.clientWidth))
+    }
+    compute()
+    window.addEventListener('resize', compute)
+    return () => window.removeEventListener('resize', compute)
+  }, [])
+
+  const x = useTransform(scrollYProgress, [0, 1], [0, -maxShift])
   const progressWidth = useTransform(scrollYProgress, [0, 1], ['0%', '100%'])
 
   return (
@@ -75,8 +91,9 @@ function DesktopTimeline({ scrollYProgress }: { scrollYProgress: MotionValue<num
       </div>
 
       {/* Horizontal rail */}
-      <div className="overflow-hidden">
+      <div ref={wrapRef} className="overflow-hidden">
         <motion.div
+          ref={railRef}
           className="flex gap-12 px-8"
           style={{ x }}
         >
