@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef } from 'react'
+import { useRef, useState, useCallback } from 'react'
 import { motion, useInView } from 'framer-motion'
 import { ShieldCheck, Award, FileCheck, Microscope } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
@@ -103,6 +103,42 @@ const accentMap = {
   },
 }
 
+function TiltCard({ children }: { children: React.ReactNode }) {
+  const cardRef = useRef<HTMLDivElement>(null)
+  const [transform, setTransform] = useState('')
+
+  const onMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current
+    if (!card) return
+    const { left, top, width, height } = card.getBoundingClientRect()
+    const x = (e.clientX - left) / width - 0.5   // -0.5 to 0.5
+    const y = (e.clientY - top) / height - 0.5   // -0.5 to 0.5
+    setTransform(
+      `perspective(600px) rotateY(${x * 14}deg) rotateX(${-y * 14}deg) scale3d(1.03,1.03,1.03)`
+    )
+  }, [])
+
+  const onMouseLeave = useCallback(() => {
+    setTransform('perspective(600px) rotateY(0deg) rotateX(0deg) scale3d(1,1,1)')
+  }, [])
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      style={{
+        transform,
+        transition: transform === '' ? 'none' : 'transform 0.15s ease-out',
+        transformStyle: 'preserve-3d',
+        willChange: 'transform',
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
 export function CertificationGrid() {
   const ref = useRef<HTMLElement>(null)
   const inView = useInView(ref, { once: true, margin: '-10%' })
@@ -112,40 +148,9 @@ export function CertificationGrid() {
       ref={ref}
       className="relative overflow-hidden py-20 md:py-32"
       style={{
-        background: 'linear-gradient(135deg, #05091a 0%, #080e2e 30%, #0a1540 60%, #060d1f 100%)',
+        background: '#f0f9ff',
       }}
     >
-      {/* Ambient light orbs */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        {/* Primary brand glow */}
-        <div
-          className="absolute -top-32 -left-32 h-[600px] w-[600px] rounded-full blur-[120px]"
-          style={{ background: 'radial-gradient(circle, rgba(0,140,201,0.18) 0%, transparent 70%)' }}
-        />
-        {/* Gold accent glow (CEP card area) */}
-        <div
-          className="absolute top-1/4 right-1/4 h-[400px] w-[400px] rounded-full blur-[100px]"
-          style={{ background: 'radial-gradient(circle, rgba(251,191,36,0.10) 0%, transparent 70%)' }}
-        />
-        {/* Purple deep glow */}
-        <div
-          className="absolute bottom-0 right-0 h-[500px] w-[500px] rounded-full blur-[130px]"
-          style={{ background: 'radial-gradient(circle, rgba(99,102,241,0.14) 0%, transparent 70%)' }}
-        />
-        {/* Center soft diffuse */}
-        <div
-          className="absolute top-1/2 left-1/2 h-[700px] w-[700px] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[160px]"
-          style={{ background: 'radial-gradient(circle, rgba(0,100,180,0.07) 0%, transparent 70%)' }}
-        />
-        {/* Subtle grid */}
-        <div
-          className="absolute inset-0 opacity-[0.025]"
-          style={{
-            backgroundImage: `linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)`,
-            backgroundSize: '80px 80px',
-          }}
-        />
-      </div>
 
       <Container>
         {/* Header */}
@@ -166,10 +171,10 @@ export function CertificationGrid() {
           >
             Certifications
           </span>
-          <h2 className="mt-5 text-3xl font-bold tracking-tight text-white md:text-4xl lg:text-5xl">
+          <h2 className="mt-5 text-3xl font-bold tracking-tight text-[#0c2d6b] md:text-4xl lg:text-5xl">
             Quality Without Compromise
           </h2>
-          <p className="mx-auto mt-4 max-w-2xl text-lg" style={{ color: 'rgba(148,163,184,0.9)' }}>
+          <p className="mx-auto mt-4 max-w-2xl text-lg text-gray-500">
             Internationally recognized certifications ensuring the highest standards
             of pharmaceutical manufacturing
           </p>
@@ -182,8 +187,8 @@ export function CertificationGrid() {
             const acc = accentMap[cert.accent as keyof typeof accentMap]
 
             return (
+              <TiltCard key={cert.name}>
               <motion.div
-                key={cert.name}
                 className="group relative cursor-default"
                 initial={{ opacity: 0, y: 40 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -200,17 +205,16 @@ export function CertificationGrid() {
                   className="relative h-full rounded-2xl p-6 transition-all duration-500 group-hover:-translate-y-1.5"
                   style={{
                     background: cert.isNew
-                      ? 'linear-gradient(135deg, rgba(251,191,36,0.09) 0%, rgba(255,255,255,0.05) 50%, rgba(0,0,0,0.15) 100%)'
-                      : 'linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.04) 50%, rgba(0,0,0,0.12) 100%)',
-                    backdropFilter: 'blur(24px) saturate(160%)',
-                    WebkitBackdropFilter: 'blur(24px) saturate(160%)',
+                      ? 'rgba(255,255,255,0.75)'
+                      : 'rgba(255,255,255,0.60)',
+                    backdropFilter: 'blur(16px) saturate(160%)',
+                    WebkitBackdropFilter: 'blur(16px) saturate(160%)',
                     border: cert.isNew
-                      ? '1px solid rgba(251,191,36,0.4)'
-                      : '1px solid rgba(255,255,255,0.12)',
-                    borderTop: cert.isNew
-                      ? '1px solid rgba(251,191,36,0.7)'
-                      : '1px solid rgba(255,255,255,0.22)',
-                    boxShadow: `0 8px 32px rgba(0,0,0,0.4), 0 0 0 0.5px rgba(255,255,255,0.04) inset, 0 1px 0 rgba(255,255,255,0.12) inset`,
+                      ? '1px solid rgba(251,191,36,0.5)'
+                      : '1px solid rgba(255,255,255,0.85)',
+                    boxShadow: cert.isNew
+                      ? '0 4px 24px rgba(251,191,36,0.12), 0 1px 0 rgba(255,255,255,0.9) inset'
+                      : '0 4px 24px rgba(14,64,143,0.08), 0 1px 0 rgba(255,255,255,0.9) inset',
                   }}
                 >
                   {/* Specular highlight streak */}
@@ -251,7 +255,7 @@ export function CertificationGrid() {
                   </div>
 
                   {/* Content */}
-                  <h3 className="mt-4 text-[15px] font-semibold leading-snug text-white">
+                  <h3 className="mt-4 text-[15px] font-semibold leading-snug text-[#0c2d6b]">
                     {cert.name}
                   </h3>
                   <p
@@ -260,7 +264,7 @@ export function CertificationGrid() {
                   >
                     {cert.status}
                   </p>
-                  <p className="mt-3 text-sm leading-relaxed" style={{ color: 'rgba(148,163,184,0.8)' }}>
+                  <p className="mt-3 text-sm leading-relaxed text-gray-500">
                     {cert.description}
                   </p>
 
@@ -274,6 +278,7 @@ export function CertificationGrid() {
                   />
                 </div>
               </motion.div>
+              </TiltCard>
             )
           })}
         </div>
@@ -285,11 +290,11 @@ export function CertificationGrid() {
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.6, delay: 0.7 }}
         >
-          <div className="h-px w-16 bg-gradient-to-r from-transparent to-white/20" />
-          <span className="text-xs tracking-[0.2em] uppercase" style={{ color: 'rgba(148,163,184,0.5)' }}>
+          <div className="h-px w-16 bg-gradient-to-r from-transparent to-brand-200" />
+          <span className="text-xs tracking-[0.2em] uppercase text-gray-400">
             All certifications current & verified
           </span>
-          <div className="h-px w-16 bg-gradient-to-l from-transparent to-white/20" />
+          <div className="h-px w-16 bg-gradient-to-l from-transparent to-brand-200" />
         </motion.div>
       </Container>
     </section>
