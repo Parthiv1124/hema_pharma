@@ -13,7 +13,7 @@ export function HeroHome() {
       <ScrollExpandMedia
         mediaType='video'
         mediaSrc='/videos/hallway.mp4'
-        bgImageSrc='https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1920&auto=format&fit=crop&q=80'
+        bgImageSrc='/images/hero-back.png'
         title='Unwavering Quality, Unmatched Consistency'
         date='WHO-GMP Certified API Manufacturer'
         scrollToExpand='Scroll to Explore'
