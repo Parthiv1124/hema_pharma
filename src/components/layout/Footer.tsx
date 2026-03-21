@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { Linkedin, MapPin, Phone, Mail } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { SITE_TAGLINE, CONTACT, CERTIFICATIONS } from '@/lib/constants'
@@ -28,6 +29,18 @@ export function Footer() {
               A rapidly growing pharmaceutical company committed to delivering
               high-quality Active Pharmaceutical Ingredients to the global market.
             </p>
+            <div className="mt-5">
+              <p className="mb-2 text-xs font-semibold tracking-wider text-[#0c2d6b] uppercase">
+                Scan to visit
+              </p>
+              <Image
+                src="/images/qr-code.png"
+                alt="QR Code — Hema Pharmaceuticals"
+                width={120}
+                height={120}
+                className="rounded-lg"
+              />
+            </div>
           </div>
 
           {/* Col 2 — Quick Links */}
