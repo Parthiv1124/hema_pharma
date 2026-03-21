@@ -60,3 +60,5 @@ CLAUDE.md
 
 # Random temp files
 *.png
+# Allow PNG files inside public (assets needed for the site)
+!public/**/*.png
