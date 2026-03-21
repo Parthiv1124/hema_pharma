@@ -56,11 +56,7 @@ export function GlobalReachPreview() {
 
         {/* Map */}
         <motion.div
-          className="mt-12 rounded-2xl overflow-hidden"
-          style={{
-            border: '1px solid rgba(0,140,201,0.2)',
-            boxShadow: '0 0 60px rgba(0,140,201,0.1)',
-          }}
+          className="mt-12 overflow-hidden"
           initial={{ opacity: 0 }}
           animate={inView ? { opacity: 1 } : {}}
           transition={{ duration: 0.8, delay: 0.3 }}
