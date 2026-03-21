@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import {
   ChevronRight, Factory, FlaskConical, Wind, Droplets, Zap,
-  Warehouse, X, Play, Beaker, Microscope, Package, Building, Settings, Thermometer
+  Warehouse, X, Beaker, Microscope, Package, Building, Settings, Thermometer
 } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { CTABanner } from '@/components/sections/CTABanner'
@@ -246,15 +246,15 @@ export default function InfrastructurePage() {
             </div>
           </Reveal>
           <Reveal delay={0.2}>
-            <div className="mx-auto max-w-4xl aspect-video rounded-2xl bg-navy-900 flex items-center justify-center relative overflow-hidden group cursor-pointer">
-              <div className="absolute inset-0 bg-gradient-to-t from-navy-950/80 to-transparent" />
-              <div className="relative z-10 flex flex-col items-center">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full bg-brand-500 text-white shadow-lg group-hover:scale-110 transition-transform">
-                  <Play className="h-8 w-8 ml-1" />
-                </div>
-                <p className="mt-4 text-white font-medium">Facility video will be embedded here</p>
-                <p className="mt-1 text-gray-400 text-sm">Using the existing plant-clip.mp4</p>
-              </div>
+            <div className="mx-auto max-w-4xl rounded-2xl overflow-hidden shadow-xl">
+              <video
+                className="w-full aspect-video object-cover"
+                controls
+                preload="metadata"
+              >
+                <source src="/videos/Infrastructure.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
             </div>
           </Reveal>
         </Container>

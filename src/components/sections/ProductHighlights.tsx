@@ -73,20 +73,21 @@ export function ProductHighlights() {
             return (
               <motion.div
                 key={cat.title}
+                className="h-full"
                 initial={{ opacity: 0, y: 30 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: 0.1 * i, ease: [0.16, 1, 0.3, 1] }}
               >
-                <Link href={cat.href} className="group block">
+                <Link href={cat.href} className="group flex h-full">
                   <div
-                    className="h-full rounded-2xl bg-white/60 backdrop-blur-md p-8 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:bg-white/80 border border-white/80"
+                    className="flex flex-col h-full w-full rounded-2xl bg-white/60 backdrop-blur-md p-8 transition-all duration-300 group-hover:-translate-y-2 group-hover:shadow-xl group-hover:bg-white/80 border border-white/80"
                     style={{ boxShadow: '0 4px 20px rgba(14,64,143,0.06)' }}
                   >
                     <Icon className="h-12 w-12 text-brand-500" strokeWidth={1.5} />
                     <p className="mt-4 text-sm font-semibold text-brand-500">{cat.count}</p>
                     <h3 className="mt-1 text-xl font-semibold text-[#0c2d6b]">{cat.title}</h3>
                     <p className="mt-2 text-sm text-gray-500">{cat.description}</p>
-                    <div className="mt-6 flex items-center gap-1 text-sm font-semibold text-brand-500 transition-colors group-hover:text-brand-600">
+                    <div className="mt-auto pt-6 flex items-center gap-1 text-sm font-semibold text-brand-500 transition-colors group-hover:text-brand-600">
                       Explore
                       <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
