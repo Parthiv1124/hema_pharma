@@ -58,7 +58,7 @@ function PageHead() {
     if (meta) {
       meta.setAttribute(
         'content',
-        'Explore our portfolio of 85+ Active Pharmaceutical Ingredients including sterile injectable APIs, intermediates, and molecules under development.'
+        'Explore our portfolio of 100+ Active Pharmaceutical Ingredients including sterile injectable APIs, intermediates, and molecules under development.'
       )
     }
   }, [])

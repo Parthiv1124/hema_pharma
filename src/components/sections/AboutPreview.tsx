@@ -61,6 +61,23 @@ function HexImage() {
           <span className="text-sm font-medium">Facility Image</span>
         </div>
       </div>
+      {/* Gold hex border ring */}
+      <svg className="absolute inset-0 h-full w-full pointer-events-none" viewBox="0 0 420 420">
+        <polygon
+          points="210,8 405,108 405,312 210,412 15,312 15,108"
+          fill="none"
+          stroke="#FBBF24"
+          strokeWidth="2"
+          opacity="0.3"
+        />
+        <polygon
+          points="210,20 393,114 393,306 210,400 27,306 27,114"
+          fill="none"
+          stroke="#008cc9"
+          strokeWidth="1"
+          opacity="0.15"
+        />
+      </svg>
       <div className="absolute -bottom-4 left-1/2 h-8 w-[80%] -translate-x-1/2 rounded-full bg-brand-900/10 blur-xl" />
     </motion.div>
   )
@@ -79,7 +96,20 @@ export function AboutPreview() {
   const inView = useInView(sectionRef, { once: true, margin: '-10%' })
 
   return (
-    <section ref={sectionRef} className="[overflow-x:clip] py-16 bg-white">
+    <section ref={sectionRef} className="relative [overflow-x:clip] py-16 bg-white overflow-hidden">
+      {/* Floating decorative hexagons */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <svg className="absolute top-8 right-[8%] h-16 w-16 animate-hex-float opacity-[0.06]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="#008cc9" strokeWidth="2.5" />
+        </svg>
+        <svg className="absolute bottom-12 left-[5%] h-12 w-12 animate-hex-float-reverse opacity-[0.08]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#FBBF24" opacity="0.3" />
+        </svg>
+        <svg className="absolute top-1/2 left-[2%] h-8 w-8 animate-hex-float opacity-[0.10]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#008cc9" opacity="0.2" />
+        </svg>
+      </div>
+
       <Container>
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-20">
           <TextBlock inView={inView} />

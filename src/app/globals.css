@@ -201,3 +201,53 @@
 @utility animate-marquee-reverse {
   animation: marquee-reverse 60s linear infinite;
 }
+
+/*
+ * ─── HEXAGONAL DESIGN SYSTEM ───
+ */
+
+/* Floating hex drift animation */
+@keyframes hex-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(6deg); }
+}
+
+@keyframes hex-float-reverse {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(10px) rotate(-4deg); }
+}
+
+@keyframes hex-spin-slow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@utility animate-hex-float {
+  animation: hex-float 6s ease-in-out infinite;
+}
+
+@utility animate-hex-float-reverse {
+  animation: hex-float-reverse 7s ease-in-out infinite;
+}
+
+@utility animate-hex-spin-slow {
+  animation: hex-spin-slow 30s linear infinite;
+}
+
+/* Hex clip-path utility */
+@utility clip-hexagon {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* Hex grid background pattern (repeating SVG as data URI) */
+@utility hex-pattern-blue {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23008cc9' stroke-width='0.5' opacity='0.08'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23008cc9' stroke-width='0.5' opacity='0.05'/%3E%3C/svg%3E");
+}
+
+@utility hex-pattern-gold {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='%23FBBF24' stroke-width='0.5' opacity='0.12'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='%23FBBF24' stroke-width='0.5' opacity='0.06'/%3E%3C/svg%3E");
+}
+
+@utility hex-pattern-white {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='56' height='100' viewBox='0 0 56 100'%3E%3Cpath d='M28 66L0 50L0 16L28 0L56 16L56 50L28 66L28 100' fill='none' stroke='white' stroke-width='0.5' opacity='0.07'/%3E%3Cpath d='M28 0L28 34L0 50L0 84L28 100L56 84L56 50L28 34' fill='none' stroke='white' stroke-width='0.5' opacity='0.04'/%3E%3C/svg%3E");
+}

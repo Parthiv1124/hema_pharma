@@ -28,6 +28,8 @@ export interface Product {
   molecularWeight?: string
   dmfStatus?: string
   pharmacopeia?: string[]
+  /** Parent API this intermediate is used to synthesise (intermediates only) */
+  parentApi?: string
   available: boolean
 }
 

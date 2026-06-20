@@ -167,6 +167,7 @@ export default async function ProductDetailPage({
                       <SpecRow label="Molecular Formula" value={product.molecularFormula} />
                       <SpecRow label="Molecular Weight" value={product.molecularWeight} alt />
                       <SpecRow label="Category" value={categoryLabels[product.category]} />
+                      <SpecRow label="Used In Synthesis Of" value={product.parentApi} />
                       <SpecRow label="Grade" value={gradeDisplay} alt />
                       <SpecRow
                         label="Pharmacopeia Compliance"

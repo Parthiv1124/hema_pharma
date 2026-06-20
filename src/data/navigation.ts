@@ -7,10 +7,10 @@ export const mainNavigation: NavItem[] = [
     label: 'Products',
     href: '/products',
     children: [
-      { label: 'Active Pharmaceutical Ingredients', href: '/products?category=active-pharmaceutical-ingredients' },
-      { label: 'Sterile APIs', href: '/products?category=sterile-api' },
-      { label: 'API Intermediates', href: '/products?category=api-intermediates' },
-      { label: 'Under Development', href: '/products?category=under-development' },
+      { label: 'Active Pharmaceutical Ingredients', href: '/products?category=api' },
+      { label: 'Sterile APIs', href: '/products?category=sterile' },
+      { label: 'API Intermediates', href: '/products?category=intermediate' },
+      { label: 'Under Development', href: '/products?category=development' },
     ],
   },
   { label: 'Manufacturing', href: '/manufacturing' },
@@ -31,8 +31,8 @@ export const footerQuickLinks: NavItem[] = [
 ]
 
 export const footerProductLinks: NavItem[] = [
-  { label: 'Active Pharmaceutical Ingredients', href: '/products?category=active-pharmaceutical-ingredients' },
-  { label: 'Sterile APIs', href: '/products?category=sterile-api' },
-  { label: 'API Intermediates', href: '/products?category=api-intermediates' },
-  { label: 'Under Development', href: '/products?category=under-development' },
+  { label: 'Active Pharmaceutical Ingredients', href: '/products?category=api' },
+  { label: 'Sterile APIs', href: '/products?category=sterile' },
+  { label: 'API Intermediates', href: '/products?category=intermediate' },
+  { label: 'Under Development', href: '/products?category=development' },
 ]

@@ -71,8 +71,10 @@ export function PartnerLogos() {
   return (
     <section
       ref={ref}
-      className="overflow-hidden pt-6 pb-16 bg-[#f0f9ff]"
+      className="relative overflow-hidden pt-6 pb-16 bg-[#f0f9ff]"
     >
+      {/* Subtle hex pattern */}
+      <div className="pointer-events-none absolute inset-0 hex-pattern-blue opacity-30" aria-hidden="true" />
       <Container>
         <motion.div
           className="text-center"
@@ -96,6 +98,22 @@ export function PartnerLogos() {
         transition={{ duration: 0.6, delay: 0.3 }}
       >
         <MarqueeRow />
+
+        {/* Hexagonal separator between rows */}
+        <div className="flex items-center justify-center gap-2 py-1" aria-hidden="true">
+          <div className="h-px flex-1 max-w-24 bg-gradient-to-r from-transparent to-brand-200" />
+          <svg className="h-4 w-4" viewBox="0 0 100 100">
+            <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#008cc9" opacity="0.2" />
+          </svg>
+          <svg className="h-3 w-3" viewBox="0 0 100 100">
+            <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#FBBF24" opacity="0.35" />
+          </svg>
+          <svg className="h-4 w-4" viewBox="0 0 100 100">
+            <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#008cc9" opacity="0.2" />
+          </svg>
+          <div className="h-px flex-1 max-w-24 bg-gradient-to-l from-transparent to-brand-200" />
+        </div>
+
         <MarqueeRow reverse />
       </motion.div>
     </section>

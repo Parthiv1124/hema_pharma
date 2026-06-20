@@ -7,14 +7,27 @@ import { footerQuickLinks, footerProductLinks } from '@/data/navigation'
 
 export function Footer() {
   return (
-    <footer className="bg-white pt-16 pb-8 text-gray-500 border-t border-brand-100">
+    <footer className="relative bg-white pt-16 pb-8 text-gray-500 border-t border-brand-100 overflow-hidden">
+      {/* Subtle hex pattern */}
+      <div className="pointer-events-none absolute inset-0 hex-pattern-blue opacity-25" aria-hidden="true" />
+
+      {/* Corner hexagons */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <svg className="absolute -top-6 -right-6 h-28 w-28 opacity-[0.04]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#008cc9" />
+        </svg>
+        <svg className="absolute bottom-8 -left-4 h-20 w-20 opacity-[0.04]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#FBBF24" />
+        </svg>
+      </div>
+
       <Container>
         {/* Main Grid */}
         <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
           {/* Col 1 — Brand */}
           <div>
             <div className="flex items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-brand-500 font-extrabold text-white">
+              <div className="flex h-10 w-10 items-center justify-center clip-hexagon bg-brand-500 font-extrabold text-white">
                 H
               </div>
               <div>
@@ -124,8 +137,23 @@ export function Footer() {
           </div>
         </div>
 
+        {/* Hex divider */}
+        <div className="mt-12 flex items-center justify-center gap-2 pt-2" aria-hidden="true">
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-brand-100" />
+          <svg className="h-3.5 w-3.5 shrink-0" viewBox="0 0 100 100">
+            <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#008cc9" opacity="0.2" />
+          </svg>
+          <svg className="h-2.5 w-2.5 shrink-0" viewBox="0 0 100 100">
+            <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#FBBF24" opacity="0.35" />
+          </svg>
+          <svg className="h-3.5 w-3.5 shrink-0" viewBox="0 0 100 100">
+            <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#008cc9" opacity="0.2" />
+          </svg>
+          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-brand-100" />
+        </div>
+
         {/* Certification badges */}
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 border-t border-brand-100 pt-8">
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-6 pt-4">
           {CERTIFICATIONS.map((cert) => (
             <span
               key={cert}

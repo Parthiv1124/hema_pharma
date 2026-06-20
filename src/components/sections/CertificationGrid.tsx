@@ -151,6 +151,24 @@ export function CertificationGrid() {
         background: '#f0f9ff',
       }}
     >
+      {/* Hex grid background */}
+      <div className="pointer-events-none absolute inset-0 hex-pattern-blue opacity-50" aria-hidden="true" />
+
+      {/* Floating decorative hexagons */}
+      <div className="pointer-events-none absolute inset-0" aria-hidden="true">
+        <svg className="absolute top-16 left-[5%] h-20 w-20 animate-hex-float opacity-[0.06]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="#008cc9" strokeWidth="2" />
+        </svg>
+        <svg className="absolute top-24 right-[8%] h-14 w-14 animate-hex-float-reverse opacity-[0.10]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#FBBF24" opacity="0.35" />
+        </svg>
+        <svg className="absolute bottom-20 left-[12%] h-10 w-10 animate-hex-float opacity-[0.12]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#FBBF24" opacity="0.3" />
+        </svg>
+        <svg className="absolute bottom-12 right-[5%] h-24 w-24 animate-hex-float-reverse opacity-[0.05]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#008cc9" />
+        </svg>
+      </div>
 
       <Container>
         {/* Header */}
@@ -242,16 +260,21 @@ export function CertificationGrid() {
                     </div>
                   )}
 
-                  {/* Icon */}
-                  <div
-                    className="flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
-                    style={{
-                      background: acc.iconBg,
-                      border: `1px solid ${acc.ring}`,
-                      boxShadow: `0 0 16px ${acc.glow}`,
-                    }}
-                  >
-                    <Icon className="h-5 w-5" style={{ color: acc.iconColor }} strokeWidth={1.75} />
+                  {/* Hexagonal Icon */}
+                  <div className="relative">
+                    <div
+                      className="flex h-12 w-12 items-center justify-center clip-hexagon transition-transform duration-300 group-hover:scale-110"
+                      style={{
+                        background: acc.iconBg,
+                        boxShadow: `0 0 16px ${acc.glow}`,
+                      }}
+                    >
+                      <Icon className="h-5 w-5" style={{ color: acc.iconColor }} strokeWidth={1.75} />
+                    </div>
+                    {/* Hex border ring */}
+                    <svg className="absolute -inset-0.5 h-[calc(100%+4px)] w-[calc(100%+4px)] -top-0.5 -left-0.5 pointer-events-none" viewBox="0 0 100 100">
+                      <polygon points="50,3 97,26 97,74 50,97 3,74 3,26" fill="none" stroke={acc.ring} strokeWidth="2" />
+                    </svg>
                   </div>
 
                   {/* Content */}

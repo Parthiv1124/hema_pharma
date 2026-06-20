@@ -27,6 +27,27 @@ export function GlobalReachPreview() {
       className="relative py-16 md:py-24"
       style={{ background: 'linear-gradient(180deg, #1e3a8a 0%, #0369a1 100%)' }}
     >
+      {/* Hex grid background */}
+      <div className="pointer-events-none absolute inset-0 hex-pattern-white" aria-hidden="true" />
+
+      {/* Floating hexagons */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <svg className="absolute -top-8 left-[10%] h-28 w-28 animate-hex-float opacity-[0.06]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="white" strokeWidth="1.5" />
+        </svg>
+        <svg className="absolute top-1/3 -left-6 h-20 w-20 animate-hex-float-reverse opacity-[0.05]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#FBBF24" opacity="0.3" />
+        </svg>
+        <svg className="absolute top-[15%] right-[5%] h-16 w-16 animate-hex-float opacity-[0.08]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#FBBF24" opacity="0.25" />
+        </svg>
+        <svg className="absolute bottom-[10%] right-[15%] h-24 w-24 animate-hex-float-reverse opacity-[0.04]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="white" strokeWidth="2" />
+        </svg>
+        <svg className="absolute bottom-8 left-[25%] h-12 w-12 animate-hex-float opacity-[0.07]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="white" opacity="0.15" />
+        </svg>
+      </div>
 
       <Container>
         {/* Header */}

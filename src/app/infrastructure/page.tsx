@@ -43,7 +43,7 @@ function Reveal({ children, delay = 0, className = '' }: { children: React.React
 
 const stats = [
   { numeric: 257, suffix: ' MT', label: 'Annual Production Capacity' },
-  { numeric: 85,  suffix: '+',   label: 'API Products' },
+  { numeric: 100, suffix: '+',   label: 'API Products' },
   { numeric: 40,  suffix: '+',   label: 'International Markets' },
   { numeric: 24,  suffix: '/7',  label: 'Manufacturing Operations' },
 ]

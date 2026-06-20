@@ -12,7 +12,7 @@ interface StatItem {
 
 const stats: StatItem[] = [
   { value: 257, suffix: ' MT', label: 'Annual Production Capacity' },
-  { value: 85, suffix: '+', label: 'API Products' },
+  { value: 100, suffix: '+', label: 'API Products' },
   { value: 40, suffix: '+', label: 'International Markets' },
   { value: 24, suffix: '/7', label: 'Manufacturing Operations' },
 ]
@@ -70,13 +70,33 @@ export function StatsSection() {
       ref={ref}
       className="relative z-10 -mt-20 pb-4 bg-transparent"
     >
+      {/* Floating decorative hexagons */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+        <svg className="absolute -top-6 left-[8%] h-16 w-16 animate-hex-float opacity-[0.12]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="#008cc9" strokeWidth="3" />
+        </svg>
+        <svg className="absolute -top-4 right-[12%] h-10 w-10 animate-hex-float-reverse opacity-[0.15]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#FBBF24" opacity="0.3" />
+        </svg>
+        <svg className="absolute bottom-2 left-[20%] h-8 w-8 animate-hex-float opacity-[0.10]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#008cc9" opacity="0.25" />
+        </svg>
+        <svg className="absolute -bottom-2 right-[6%] h-14 w-14 animate-hex-float-reverse opacity-[0.08]" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="#FBBF24" strokeWidth="2.5" />
+        </svg>
+      </div>
+
       <Container>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
           {stats.map((stat, i) => (
             <div key={stat.label} className="relative flex justify-center">
-              {/* Vertical divider (desktop only, skip first) */}
+              {/* Hexagonal divider node (desktop only, between cards) */}
               {i > 0 && (
-                <div className="absolute top-4 bottom-4 left-0 hidden w-px bg-brand-100 lg:block" />
+                <div className="absolute top-1/2 left-0 -translate-x-1/2 -translate-y-1/2 hidden lg:block z-10">
+                  <svg className="h-5 w-5" viewBox="0 0 100 100">
+                    <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#FBBF24" opacity="0.5" />
+                  </svg>
+                </div>
               )}
               <StatCard stat={stat} index={i} inView={inView} />
             </div>

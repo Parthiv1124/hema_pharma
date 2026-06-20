@@ -16,16 +16,25 @@ export function CTABanner() {
       className="relative overflow-hidden py-20"
       style={{ background: 'linear-gradient(135deg, #0369a1 0%, #0284c7 50%, #38bdf8 100%)' }}
     >
-      {/* Floating hexagons */}
+      {/* Hex grid pattern */}
+      <div className="pointer-events-none absolute inset-0 hex-pattern-white" aria-hidden="true" />
+
+      {/* Floating hexagons — blue, gold, white mix */}
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <svg className="absolute -top-12 -left-12 h-48 w-48 text-white/[0.08]" viewBox="0 0 100 100">
-          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="currentColor" />
+        <svg className="absolute -top-12 -left-12 h-48 w-48 animate-hex-float" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="white" opacity="0.08" />
         </svg>
-        <svg className="absolute -right-8 -bottom-8 h-64 w-64 text-white/[0.08]" viewBox="0 0 100 100">
-          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="currentColor" />
+        <svg className="absolute -right-8 -bottom-8 h-64 w-64 animate-hex-float-reverse" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="#FBBF24" strokeWidth="1.5" opacity="0.2" />
         </svg>
-        <svg className="absolute top-1/4 right-1/4 h-32 w-32 text-white/[0.08]" viewBox="0 0 100 100">
-          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="currentColor" />
+        <svg className="absolute top-1/4 right-1/4 h-32 w-32 animate-hex-float" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="white" opacity="0.06" />
+        </svg>
+        <svg className="absolute top-[60%] left-[8%] h-20 w-20 animate-hex-float-reverse" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="#FBBF24" opacity="0.12" />
+        </svg>
+        <svg className="absolute top-[10%] left-[35%] h-12 w-12 animate-hex-float" viewBox="0 0 100 100">
+          <polygon points="50,5 95,27.5 95,72.5 50,95 5,72.5 5,27.5" fill="none" stroke="white" strokeWidth="2.5" opacity="0.1" />
         </svg>
       </div>
 
