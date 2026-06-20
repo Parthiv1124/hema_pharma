@@ -13,7 +13,6 @@ export const mainNavigation: NavItem[] = [
       { label: 'Under Development', href: '/products?category=development' },
     ],
   },
-  { label: 'Manufacturing', href: '/manufacturing' },
   { label: 'Infrastructure', href: '/infrastructure' },
   { label: 'Quality Assurance', href: '/quality' },
   { label: 'Research & Development', href: '/research' },

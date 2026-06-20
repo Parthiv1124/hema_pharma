@@ -2,10 +2,11 @@
 
 import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import {
   ChevronRight, Factory, FlaskConical, Wind, Droplets, Zap,
-  Warehouse, X, Beaker, Microscope, Package, Building, Settings, Thermometer
+  X, Thermometer, Image as ImageIcon
 } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { CTABanner } from '@/components/sections/CTABanner'
@@ -48,16 +49,45 @@ const stats = [
   { numeric: 24,  suffix: '/7',  label: 'Manufacturing Operations' },
 ]
 
-const facilityImages = [
-  { name: 'Production Floor', icon: Factory },
-  { name: 'Clean Rooms', icon: Wind },
-  { name: 'QC Laboratory', icon: Beaker },
-  { name: 'Microbiology Lab', icon: Microscope },
-  { name: 'Warehouse', icon: Warehouse },
-  { name: 'R&D Lab', icon: FlaskConical },
-  { name: 'Packaging Area', icon: Package },
-  { name: 'Utility Block', icon: Settings },
-  { name: 'Admin Building', icon: Building },
+type GalleryPhoto = { src: string; alt: string }
+type Gallery = { name: string; description: string; cover: string; photos: GalleryPhoto[] }
+
+const galleries: Gallery[] = [
+  {
+    name: 'Warehouse',
+    description: 'Climate-controlled storage for raw materials and finished goods',
+    cover: '/images/infrastructure/warehouse-1.jpg',
+    photos: [
+      { src: '/images/infrastructure/warehouse-1.jpg', alt: 'Warehouse storage racking with palletised raw materials' },
+      { src: '/images/infrastructure/warehouse-2.jpg', alt: 'Temperature-controlled warehouse storage area' },
+      { src: '/images/infrastructure/warehouse-3.jpg', alt: 'Organised warehouse aisles with labelled inventory' },
+      { src: '/images/infrastructure/warehouse-4.jpg', alt: 'Finished goods and raw material storage warehouse' },
+      { src: '/images/infrastructure/warehouse-5.jpg', alt: 'GMP-compliant warehouse facility' },
+    ],
+  },
+  {
+    name: 'Product Development Lab',
+    description: 'Process development and scale-up of new API molecules',
+    cover: '/images/infrastructure/product-dev-1.jpg',
+    photos: [
+      { src: '/images/infrastructure/product-dev-1.jpg', alt: 'Product development laboratory workstation' },
+      { src: '/images/infrastructure/product-dev-2.jpg', alt: 'Process development glassware and instrumentation' },
+      { src: '/images/infrastructure/product-dev-3.jpg', alt: 'Laboratory-scale reaction setup' },
+      { src: '/images/infrastructure/product-dev-4.jpg', alt: 'Analytical bench in the product development lab' },
+      { src: '/images/infrastructure/product-dev-5.jpg', alt: 'Product development lab equipment' },
+    ],
+  },
+  {
+    name: 'R&D Lab',
+    description: 'Research and analytical development for new chemistries',
+    cover: '/images/infrastructure/rd-1.jpg',
+    photos: [
+      { src: '/images/infrastructure/rd-1.jpg', alt: 'Research and development laboratory' },
+      { src: '/images/infrastructure/rd-2.jpg', alt: 'R&D analytical instrumentation' },
+      { src: '/images/infrastructure/rd-3.jpg', alt: 'Research lab workbench and apparatus' },
+      { src: '/images/infrastructure/rd-4.png', alt: 'R&D laboratory facility' },
+    ],
+  },
 ]
 
 const highlights = [
@@ -88,7 +118,10 @@ function StatItem({ stat, index, inView }: { stat: typeof stats[0]; index: numbe
 }
 
 export default function InfrastructurePage() {
-  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null)
+  // Which category gallery is open in the lightbox (null = closed), and the active photo within it
+  const [activeCategory, setActiveCategory] = useState<number | null>(null)
+  const [photoIndex, setPhotoIndex] = useState(0)
+  const openGallery = (categoryIndex: number) => { setActiveCategory(categoryIndex); setPhotoIndex(0) }
   const statsRef = useRef<HTMLElement>(null)
   const statsInView = useInView(statsRef, { once: true, margin: '-10%' })
   const galleryRef = useRef<HTMLElement>(null)
@@ -132,75 +165,121 @@ export default function InfrastructurePage() {
           <motion.div className="text-center mb-12" initial={{ opacity: 0, y: 20 }} animate={galleryInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.5 }}>
             <span className="text-sm font-semibold tracking-widest text-brand-500 uppercase">Our Facility</span>
             <h2 className="mt-3 text-3xl font-bold tracking-tight text-gray-900 md:text-4xl">Manufacturing Facility Tour</h2>
+            <p className="mt-3 text-gray-500">Select a section to view its photo gallery</p>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {facilityImages.map((img, i) => {
-              const Icon = img.icon
-              return (
-                <motion.button
-                  key={img.name}
-                  onClick={() => setLightboxIndex(i)}
-                  className="group relative aspect-[4/3] rounded-xl bg-gradient-to-br from-navy-900 to-navy-950 overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={galleryInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.4, delay: 0.05 * i }}
-                >
-                  <div className="absolute inset-0 flex flex-col items-center justify-center p-4">
-                    <Icon className="h-12 w-12 text-brand-400/60 group-hover:text-brand-400 transition-colors" strokeWidth={1.5} />
-                    <span className="mt-3 text-white font-medium text-sm">{img.name}</span>
-                  </div>
-                  <div className="absolute inset-0 bg-brand-500/0 group-hover:bg-brand-500/10 transition-colors" />
-                </motion.button>
-              )
-            })}
+            {galleries.map((gallery, i) => (
+              <motion.button
+                key={gallery.name}
+                onClick={() => openGallery(i)}
+                className="group relative aspect-[4/3] rounded-xl bg-navy-900 overflow-hidden cursor-pointer text-left transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                initial={{ opacity: 0, y: 20 }}
+                animate={galleryInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.4, delay: 0.05 * i }}
+              >
+                <Image
+                  src={gallery.cover}
+                  alt={gallery.name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                {/* Gradient overlay for legible text */}
+                <div className="absolute inset-0 bg-gradient-to-t from-navy-950/90 via-navy-950/30 to-transparent" />
+                {/* Photo count badge */}
+                <span className="absolute top-3 right-3 inline-flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                  <ImageIcon className="h-3.5 w-3.5" />
+                  {gallery.photos.length}
+                </span>
+                {/* Title */}
+                <div className="absolute inset-x-0 bottom-0 p-5">
+                  <h3 className="text-lg font-bold text-white">{gallery.name}</h3>
+                  <p className="mt-1 text-sm text-white/70 line-clamp-2">{gallery.description}</p>
+                  <span className="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand-300 transition-colors group-hover:text-brand-200">
+                    View photos
+                    <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </span>
+                </div>
+              </motion.button>
+            ))}
           </div>
         </Container>
       </section>
 
-      {/* ─── Lightbox Modal ─── */}
+      {/* ─── Lightbox Modal (per-category gallery) ─── */}
       <AnimatePresence>
-        {lightboxIndex !== null && (
-          <motion.div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setLightboxIndex(null)}
-          >
+        {activeCategory !== null && (() => {
+          const gallery = galleries[activeCategory]
+          const photo = gallery.photos[photoIndex]
+          const count = gallery.photos.length
+          return (
             <motion.div
-              className="relative w-full max-w-2xl rounded-2xl bg-navy-900 p-8"
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              onClick={(e) => e.stopPropagation()}
+              className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setActiveCategory(null)}
             >
-              <button onClick={() => setLightboxIndex(null)} className="absolute top-4 right-4 text-white/60 hover:text-white">
-                <X className="h-6 w-6" />
-              </button>
-              <div className="flex flex-col items-center justify-center py-12">
-                {(() => { const Icon = facilityImages[lightboxIndex].icon; return <Icon className="h-24 w-24 text-brand-400" strokeWidth={1} /> })()}
-                <h3 className="mt-6 text-2xl font-bold text-white">{facilityImages[lightboxIndex].name}</h3>
-                <p className="mt-2 text-gray-400 text-sm">Facility image placeholder — upload actual photos</p>
-              </div>
-              {/* Navigation */}
-              <div className="flex justify-between mt-4">
-                <button
-                  onClick={() => setLightboxIndex((lightboxIndex - 1 + facilityImages.length) % facilityImages.length)}
-                  className="rounded-full bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20 transition-colors"
-                >
-                  ← Previous
+              <motion.div
+                className="relative w-full max-w-4xl rounded-2xl bg-navy-900 p-4"
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Header */}
+                <div className="mb-3 flex items-center justify-between pr-10">
+                  <h3 className="text-lg font-bold text-white">{gallery.name}</h3>
+                </div>
+                <button onClick={() => setActiveCategory(null)} className="absolute top-4 right-4 z-10 rounded-full bg-black/40 p-1.5 text-white/80 hover:text-white">
+                  <X className="h-6 w-6" />
                 </button>
-                <button
-                  onClick={() => setLightboxIndex((lightboxIndex + 1) % facilityImages.length)}
-                  className="rounded-full bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20 transition-colors"
-                >
-                  Next →
-                </button>
-              </div>
+
+                <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-navy-950">
+                  <Image
+                    key={photo.src}
+                    src={photo.src}
+                    alt={photo.alt}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 896px"
+                    className="object-contain"
+                  />
+                </div>
+
+                {/* Navigation */}
+                <div className="flex items-center justify-between mt-4 px-1">
+                  <button
+                    onClick={() => setPhotoIndex((photoIndex - 1 + count) % count)}
+                    className="rounded-full bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20 transition-colors"
+                  >
+                    ← Previous
+                  </button>
+                  <span className="text-sm text-white/60">{photoIndex + 1} / {count}</span>
+                  <button
+                    onClick={() => setPhotoIndex((photoIndex + 1) % count)}
+                    className="rounded-full bg-white/10 px-4 py-2 text-sm text-white hover:bg-white/20 transition-colors"
+                  >
+                    Next →
+                  </button>
+                </div>
+
+                {/* Thumbnail strip */}
+                <div className="mt-4 flex gap-2 overflow-x-auto pb-1">
+                  {gallery.photos.map((p, idx) => (
+                    <button
+                      key={p.src}
+                      onClick={() => setPhotoIndex(idx)}
+                      className={`relative h-14 w-20 shrink-0 overflow-hidden rounded-md transition-all ${idx === photoIndex ? 'ring-2 ring-brand-400' : 'opacity-60 hover:opacity-100'}`}
+                    >
+                      <Image src={p.src} alt={p.alt} fill sizes="80px" className="object-cover" />
+                    </button>
+                  ))}
+                </div>
+              </motion.div>
             </motion.div>
-          </motion.div>
-        )}
+          )
+        })()}
       </AnimatePresence>
 
       {/* ─── Infrastructure Highlights ─── */}
